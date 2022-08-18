@@ -68,4 +68,36 @@ public class SurveyService {
         questions.add(question);
 
     }
+
+    public String deleteSurveyQuestionByIds(String surveyId, String queryId) {
+        List<Question> questions =retrieveSurveyQuestionsById(surveyId);
+        if(questions==null)
+            return null;
+
+
+        Predicate<? super Question> predicate=
+                question->question.getId().equals(queryId);
+
+        boolean ans = questions.removeIf(predicate);
+        if(!ans)
+            return null;
+        return queryId;
+    }
+
+    public String updateSurveyQuestionById(String surveyId, String queryId, Question question) {
+        List<Question> questions =retrieveSurveyQuestionsById(surveyId);
+        if(questions==null)
+            return null;
+
+
+        Predicate<? super Question> predicate=
+                question1->question1.getId().equals(queryId);
+
+        boolean ans = questions.removeIf(predicate);
+        if(!ans)
+            return null;
+        questions.add(question);
+        return queryId;
+
+    }
 }
